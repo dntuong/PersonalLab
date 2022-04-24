@@ -20,13 +20,6 @@ def registerPage(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            group = Group.objects.get(name='customer')
-            user.groups.add(group)
-            Customer.objects.create(
-                user = user,
-            )
-
-
             messages.success(request, 'Account was created for ' + username)
             return redirect('login')
 
@@ -44,7 +37,7 @@ def loginPage(request):
             return redirect('home')
         else:
             messages.info(request, 'Username OR password is incorrect')
-            
+
     content = {}
     return render(request, 'accounts/login.html', content)    
 
@@ -154,9 +147,5 @@ def deleteOrder(request, pk):
 
     context = {'item':order}
     return render(request, 'accounts/delete.html', context)
-
-
-
-
 
 
